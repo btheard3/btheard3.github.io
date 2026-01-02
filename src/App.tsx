@@ -121,7 +121,6 @@ function getTags(p: Project): string[] {
   if (t.includes("volatility") || t.includes("regime")) tags.add("volatility");
   if (t.includes("dashboard") || p.stack.some((x) => x.toLowerCase() === "dashboard")) tags.add("dashboard");
   if (p.stack.some((x) => x.toLowerCase() === "research")) tags.add("research");
-
   if (p.stack.some((x) => x.toLowerCase() === "streamlit")) tags.add("dashboard");
 
   return Array.from(tags);
@@ -162,13 +161,75 @@ function summarizeThree(p: Project): { problem: string; approach: string; result
   }
 }
 
-function ProjectCard({
-  p,
-  onOpen
-}: {
-  p: Project;
-  onOpen: (p: Project) => void;
-}) {
+function getProofPanel(p: Project): {
+  datasetNote: string;
+  proofPoints: string[];
+  reproTip: string;
+} {
+  switch (p.title) {
+    case "Sentinel Forecaster":
+      return {
+        datasetNote:
+          "Dataset: TradyFlow options sweeps (Kaggle). Core fields: ticker, timestamp, strike/expiry, call/put, premium, volume, OI, and trade metadata used to derive context features.",
+        proofPoints: [
+          "Live dashboard shows the same scoring logic used in the repo",
+          "Readable scoring breakdown (no “black box” magic)",
+          "Clear separation: data → features → scoring → UI"
+        ],
+        reproTip:
+          "Repro: open the repo → follow the README install steps (requirements + env) → run the local app entrypoint. If you’re rushed, use the live app link and then read the README for the exact pipeline."
+      };
+
+    case "Volatility Alpha Engine (VAE)":
+      return {
+        datasetNote:
+          "Dataset: market history + volatility features (DuckDB-backed). Includes OHLCV-style price history + derived vol/regime features stored locally for fast iteration; exact sources + build steps are documented in the repo.",
+        proofPoints: [
+          "DuckDB research pipeline (fast, portable, reproducible)",
+          "Feature engineering + regime logic is in notebooks/scripts",
+          "Streamlit screener is deployed to prove it runs end-to-end"
+        ],
+        reproTip:
+          "Repro: clone repo → create venv → install requirements → build/populate DuckDB per README → run Streamlit screener locally. The live screener matches the same artifact flow."
+      };
+
+    case "Financial News NLP":
+      return {
+        datasetNote:
+          "Dataset: financial news headlines from CNBC / Reuters / The Guardian (snapshot dataset used in the repo). Core fields: headline text, source, published timestamp (plus any available metadata).",
+        proofPoints: [
+          "Interpretable baseline: TF-IDF + topic discovery (no gimmicks)",
+          "Outlet comparison tables/plots for narrative emphasis",
+          "Deployed service proves the pipeline is runnable outside notebooks"
+        ],
+        reproTip:
+          "Repro: open repo → follow README to install deps + run the pipeline locally (or via Docker if provided). The goal is repeatable topic outputs + outlet comparison, not one-off notebook results."
+      };
+
+    case "EarningsEdge":
+      return {
+        datasetNote:
+          "Dataset: earnings calendar + price history around events (evaluation windows). Outputs are stored as reproducible artifacts (CSVs/metrics) that power the dashboard UI; sources and generation steps live in the repo.",
+        proofPoints: [
+          "Artifact-first workflow (metrics/CSVs) so results are auditable",
+          "Dashboard reads published artifacts (stable + reviewable)",
+          "Clear separation: research generation → UI consumption"
+        ],
+        reproTip:
+          "Repro: repo README has the exact commands to regenerate artifacts and run the UI. If you only do one thing: regenerate artifacts, then start the dashboard—everything else is just plumbing."
+      };
+
+    default:
+      return {
+        datasetNote:
+          "Dataset: documented in the project repo (source, timeframe, and key fields).",
+        proofPoints: ["Deployed app + repo show the end-to-end path."],
+        reproTip: "Repro: follow the repo README to install dependencies and run locally."
+      };
+  }
+}
+
+function ProjectCard({ p, onOpen }: { p: Project; onOpen: (p: Project) => void }) {
   return (
     <div
       className="card"
@@ -314,14 +375,8 @@ export default function App() {
     []
   );
 
-  const liveCount = useMemo(
-    () => projects.filter((p) => p.status === "Live").length,
-    []
-  );
-  const repoCount = useMemo(
-    () => projects.filter((p) => p.status === "Repo").length,
-    []
-  );
+  const liveCount = useMemo(() => projects.filter((p) => p.status === "Live").length, []);
+  const repoCount = useMemo(() => projects.filter((p) => p.status === "Repo").length, []);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -330,20 +385,12 @@ export default function App() {
     return projects.filter((p) => {
       const tags = new Set(getTags(p));
       const passesFilters =
-        normalizedFilters.size === 0 ||
-        Array.from(normalizedFilters).every((f) => tags.has(f));
+        normalizedFilters.size === 0 || Array.from(normalizedFilters).every((f) => tags.has(f));
 
       if (!passesFilters) return false;
-
       if (!q) return true;
 
-      const blob = [
-        p.title,
-        p.subtitle,
-        p.whyItMatters,
-        p.highlights.join(" "),
-        p.stack.join(" ")
-      ]
+      const blob = [p.title, p.subtitle, p.whyItMatters, p.highlights.join(" "), p.stack.join(" ")]
         .join(" ")
         .toLowerCase();
 
@@ -366,6 +413,7 @@ export default function App() {
   const closeDetails = () => setSelected(null);
 
   const detail = selected ? summarizeThree(selected) : null;
+  const proof = selected ? getProofPanel(selected) : null;
 
   return (
     <div className="page">
@@ -482,12 +530,10 @@ export default function App() {
         </div>
 
         <div className="hero">
-          <h1 className="heroTitle">
-            Decision-support systems for markets, narratives, and volatility.
-          </h1>
+          <h1 className="heroTitle">Decision-support systems for markets, narratives, and volatility.</h1>
           <p className="heroSubtitle">
-            I ship interpretable analytics products — not vibes. Click any card
-            for the 60-second overview, then jump to the live app or repo.
+            I ship interpretable analytics products — not vibes. Click any card for the 60-second
+            overview, then jump to the live app or repo.
           </p>
 
           <div className="heroCtas">
@@ -575,9 +621,7 @@ export default function App() {
         <section id="projects" className="section">
           <div className="sectionHeader">
             <h2>Projects</h2>
-            <p className="muted">
-              Click a card for a 60-second overview, then jump to the live app or repo.
-            </p>
+            <p className="muted">Click a card for a 60-second overview, then jump to the live app or repo.</p>
 
             <div className="searchRow">
               <input
@@ -624,9 +668,8 @@ export default function App() {
 
           <div className="about">
             <p>
-              I’m Brandon — a data scientist who builds <b>interpretable</b> systems that help people
-              make better calls under uncertainty. My work blends NLP, quantitative research,
-              and product-quality dashboards.
+              I’m Brandon — a data scientist who builds <b>interpretable</b> systems that help people make better calls
+              under uncertainty. My work blends NLP, quantitative research, and product-quality dashboards.
             </p>
 
             <div className="aboutRow">
@@ -683,7 +726,7 @@ export default function App() {
       </main>
 
       <Modal open={!!selected} onClose={closeDetails} title={selected?.title ?? "Project"}>
-        {selected && detail && (
+        {selected && detail && proof && (
           <div className="detailGrid">
             <div className="detailCard">
               <div className="detailH">60-second overview</div>
@@ -730,9 +773,7 @@ export default function App() {
 
             <div className="detailCard">
               <div className="detailH">Proof + architecture</div>
-              <div className="muted">
-                Not a dissertation — just enough to show this is real, reproducible work.
-              </div>
+              <div className="muted">Not a dissertation — just enough to show this is real, reproducible work.</div>
 
               <div className="detailK">Tags</div>
               <div className="stackRow">
@@ -752,15 +793,18 @@ export default function App() {
   → Artifacts + Explanations
   → Deploy (Cloud / GitHub)`}</div>
 
-              <div className="detailK">Dataset note (add later)</div>
-              <div className="muted">
-                Add 1–2 lines here per project (source + date range + key fields).
-              </div>
+              <div className="detailK">Dataset</div>
+              <div className="muted">{proof.datasetNote}</div>
+
+              <div className="detailK">Proof points</div>
+              <ul className="bullets">
+                {proof.proofPoints.map((x) => (
+                  <li key={x}>{x}</li>
+                ))}
+              </ul>
 
               <div className="detailK">Repro tip</div>
-              <div className="muted">
-                Keep install steps + commands in each repo README. This site is the front door.
-              </div>
+              <div className="muted">{proof.reproTip}</div>
             </div>
           </div>
         )}
