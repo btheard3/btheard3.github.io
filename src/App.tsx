@@ -83,6 +83,35 @@ const CONTACT = {
   email: "btheard4@outlook.com"
 };
 
+const BLOGS = [
+  {
+    key: "sentinel",
+    title: "Sentinel Forecaster",
+    subtitle: "Options sweep interpreter — decision support, not a bot",
+    url: "https://medium.com/@btheard1/sentinel-forecaster-a876daf05c84"
+  },
+  {
+    key: "vae",
+    title: "Volatility Alpha Engine (VAE)",
+    subtitle: "Volatility regimes, research pipeline, live screener",
+    url: "https://medium.com/@btheard1/volatility-alpha-engine-17b301afd4c4"
+  },
+  {
+    key: "earningsedge",
+    title: "EarningsEdge",
+    subtitle: "What earnings volatility actually looks like",
+    url:
+      "https://medium.com/@btheard1/earningsedge-what-earnings-volatility-actually-looks-like-and-why-its-often-misread-460b67552359"
+  },
+  {
+    key: "nlp",
+    title: "Financial News NLP",
+    subtitle: "Listening to the market instead of predicting it",
+    url:
+      "https://medium.com/@btheard1/financial-news-nlp-listening-to-the-market-instead-of-predicting-it-08e6337f5a56"
+  }
+];
+
 function Pill({ children }: { children: React.ReactNode }) {
   return <span className="pill">{children}</span>;
 }
@@ -90,11 +119,13 @@ function Pill({ children }: { children: React.ReactNode }) {
 function ExternalLink({
   href,
   children,
-  className
+  className,
+  onClick
 }: {
   href: string;
   children: React.ReactNode;
   className?: string;
+  onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
 }) {
   return (
     <a
@@ -102,7 +133,10 @@ function ExternalLink({
       href={href}
       target="_blank"
       rel="noreferrer"
-      onClick={(e) => e.stopPropagation()}
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick?.(e);
+      }}
     >
       {children} <span aria-hidden="true">↗</span>
     </a>
@@ -352,10 +386,88 @@ function Modal({
   );
 }
 
+function BlogModal({
+  open,
+  onClose
+}: {
+  open: boolean;
+  onClose: () => void;
+}) {
+  useEffect(() => {
+    if (!open) return;
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [open, onClose]);
+
+  if (!open) return null;
+
+  return (
+    <div
+      className="modalBackdrop"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Project blogs"
+      onMouseDown={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <div className="modalCard">
+        <div className="modalHeader">
+          <div>
+            <div className="modalTitle">Project blogs</div>
+            <div className="muted">Short reads. Same framing as the portfolio cards.</div>
+          </div>
+          <button type="button" className="btn secondary" onClick={onClose}>
+            Close
+          </button>
+        </div>
+
+        <div className="modalBody">
+          <div className="blogGrid">
+            {BLOGS.map((b) => (
+              <div key={b.key} className="blogCard">
+                <div className="blogTitleRow">
+                  <div>
+                    <div className="blogTitle">{b.title}</div>
+                    <div className="muted">{b.subtitle}</div>
+                  </div>
+                  <span className="badge live">Medium</span>
+                </div>
+
+                <div className="linkRow" style={{ marginTop: 12 }}>
+                  <ExternalLink href={b.url} className="btn">
+                    Read blog
+                  </ExternalLink>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="archBox" style={{ marginTop: 14 }}>
+            {`Tip: if a hiring manager clicks one thing, it's the blog.
+It explains intent + tradeoffs faster than a repo ever will.`}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function App() {
   const [query, setQuery] = useState("");
   const [activeFilters, setActiveFilters] = useState<string[]>(["live"]);
   const [selected, setSelected] = useState<Project | null>(null);
+  const [blogsOpen, setBlogsOpen] = useState(false);
 
   const featured = useMemo<Project>(() => {
     const byTitle = projects.find((p) => p.title === "Sentinel Forecaster");
@@ -417,7 +529,7 @@ export default function App() {
 
   return (
     <div className="page">
-      {/* Modal + small UI styles (so it works tonight without CSS hunting) */}
+      {/* Minimal styles so it works immediately */}
       <style>{`
         .pillBtn { padding: 8px 12px; border-radius: 999px; }
         .pillBtn.active { box-shadow: 0 0 0 1px rgba(255,255,255,0.18) inset; }
@@ -510,6 +622,30 @@ export default function App() {
           line-height: 1.35;
           white-space: pre-wrap;
         }
+        .navBtn {
+          border: 0;
+          background: transparent;
+          color: inherit;
+          padding: 0;
+          cursor: pointer;
+          font: inherit;
+          opacity: 0.9;
+        }
+        .navBtn:hover { opacity: 1; text-decoration: underline; }
+        .blogGrid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 12px;
+        }
+        @media (max-width: 900px) { .blogGrid { grid-template-columns: 1fr; } }
+        .blogCard {
+          padding: 14px;
+          border-radius: 16px;
+          border: 1px solid rgba(255,255,255,0.08);
+          background: rgba(255,255,255,0.02);
+        }
+        .blogTitleRow { display:flex; gap: 12px; justify-content: space-between; align-items:flex-start; }
+        .blogTitle { font-weight: 800; }
       `}</style>
 
       <header className="header">
@@ -532,8 +668,8 @@ export default function App() {
         <div className="hero">
           <h1 className="heroTitle">Decision-support systems for markets, narratives, and volatility.</h1>
           <p className="heroSubtitle">
-            I ship interpretable analytics products — not vibes. Click any card for the 60-second
-            overview, then jump to the live app or repo.
+            I ship interpretable analytics products — not vibes. Click any card for the 60-second overview,
+            then jump to the live app or repo.
           </p>
 
           <div className="heroCtas">
@@ -546,6 +682,16 @@ export default function App() {
             <a className="btn secondary" href={CONTACT.linkedin} target="_blank" rel="noreferrer">
               LinkedIn ↗
             </a>
+
+            {/* NEW: Blog tab next to LinkedIn (opens modal list) */}
+            <button
+              type="button"
+              className="btn secondary"
+              onClick={() => setBlogsOpen(true)}
+              aria-label="Open blog list"
+            >
+              Blog ↗
+            </button>
           </div>
 
           <div className="signalRow">
@@ -809,6 +955,9 @@ export default function App() {
           </div>
         )}
       </Modal>
+
+      {/* NEW: Blog modal list */}
+      <BlogModal open={blogsOpen} onClose={() => setBlogsOpen(false)} />
     </div>
   );
 }
