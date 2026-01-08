@@ -546,6 +546,25 @@ export default function App() {
           outline: none;
         }
         .searchInput:focus { border-color: rgba(255,255,255,0.22); }
+
+        /* NEW: hero photo layout */
+        .heroLayout { display:flex; align-items:center; justify-content:space-between; gap:22px; }
+        .heroCopy { flex:1; min-width:280px; }
+        .heroPhotoWrap { width:180px; flex:0 0 180px; display:flex; justify-content:flex-end; }
+        .heroPhoto {
+          width:180px; height:180px;
+          border-radius:999px;
+          object-fit:cover;
+          border:1px solid rgba(255,255,255,0.10);
+          box-shadow:0 10px 30px rgba(0,0,0,0.35);
+          background:rgba(255,255,255,0.04);
+        }
+        @media (max-width: 860px) {
+          .heroLayout { flex-direction:column; align-items:flex-start; }
+          .heroPhotoWrap { width:148px; flex:0 0 auto; justify-content:flex-start; }
+          .heroPhoto { width:148px; height:148px; }
+        }
+
         .featuredStrip {
           margin-top: 18px;
           padding: 18px;
@@ -666,46 +685,59 @@ export default function App() {
         </div>
 
         <div className="hero">
-          <h1 className="heroTitle">Decision-support systems for markets, narratives, and volatility.</h1>
-          <p className="heroSubtitle">
-            I ship interpretable analytics products — not vibes. Click any card for the 60-second overview,
-            then jump to the live app or repo.
-          </p>
+          {/* NEW: hero layout with photo */}
+          <div className="heroLayout">
+            <div className="heroCopy">
+              <h1 className="heroTitle">Decision-support systems for markets, narratives, and volatility.</h1>
+              <p className="heroSubtitle">
+                I ship interpretable analytics products — not vibes. Click any card for the 60-second overview,
+                then jump to the live app or repo.
+              </p>
 
-          <div className="heroCtas">
-            <a className="btn" href="#projects">
-              Explore projects
-            </a>
-            <a className="btn secondary" href={CONTACT.github} target="_blank" rel="noreferrer">
-              GitHub ↗
-            </a>
-            <a className="btn secondary" href={CONTACT.linkedin} target="_blank" rel="noreferrer">
-              LinkedIn ↗
-            </a>
+              <div className="heroCtas">
+                <a className="btn" href="#projects">
+                  Explore projects
+                </a>
+                <a className="btn secondary" href={CONTACT.github} target="_blank" rel="noreferrer">
+                  GitHub ↗
+                </a>
+                <a className="btn secondary" href={CONTACT.linkedin} target="_blank" rel="noreferrer">
+                  LinkedIn ↗
+                </a>
 
-            {/* NEW: Blog tab next to LinkedIn (opens modal list) */}
-            <button
-              type="button"
-              className="btn secondary"
-              onClick={() => setBlogsOpen(true)}
-              aria-label="Open blog list"
-            >
-              Blog ↗
-            </button>
-          </div>
+                <button
+                  type="button"
+                  className="btn secondary"
+                  onClick={() => setBlogsOpen(true)}
+                  aria-label="Open blog list"
+                >
+                  Blog ↗
+                </button>
+              </div>
 
-          <div className="signalRow">
-            <div className="signal">
-              <div className="signalNum">{projects.length}</div>
-              <div className="signalLbl">Projects</div>
+              <div className="signalRow">
+                <div className="signal">
+                  <div className="signalNum">{projects.length}</div>
+                  <div className="signalLbl">Projects</div>
+                </div>
+                <div className="signal">
+                  <div className="signalNum">{liveCount}</div>
+                  <div className="signalLbl">Live apps</div>
+                </div>
+                <div className="signal">
+                  <div className="signalNum">{repoCount}</div>
+                  <div className="signalLbl">Research repos</div>
+                </div>
+              </div>
             </div>
-            <div className="signal">
-              <div className="signalNum">{liveCount}</div>
-              <div className="signalLbl">Live apps</div>
-            </div>
-            <div className="signal">
-              <div className="signalNum">{repoCount}</div>
-              <div className="signalLbl">Research repos</div>
+
+            <div className="heroPhotoWrap">
+              <img
+                src="/headshot.jpg"
+                alt="Brandon Theard"
+                className="heroPhoto"
+                loading="lazy"
+              />
             </div>
           </div>
 
@@ -956,7 +988,6 @@ export default function App() {
         )}
       </Modal>
 
-      {/* NEW: Blog modal list */}
       <BlogModal open={blogsOpen} onClose={() => setBlogsOpen(false)} />
     </div>
   );
