@@ -13,71 +13,67 @@ type Project = {
 
 const projects: Project[] = [
   {
-    title: "Sentinel Forecaster",
-    subtitle: "Options sweep interpreter (decision support, not a bot)",
+    title: "ChurnSense",
+    subtitle: "Customer churn risk + retention decision simulator (Power BI)",
     whyItMatters:
-      "Interprets unusual options activity by scoring context — direction, volatility regime, and expected move — using a transparent framework.",
+      "Customer retention is cheaper than acquisition. ChurnSense turns churn risk into a measurable decision: who to contact, what it costs, and what value you capture under capacity constraints.",
     highlights: [
-      "Directional bias + volatility context scoring",
-      "Explainability-first (no magical signals)",
-      "Live dashboard for fast sweep review"
+      "What-if capacity slider ties outreach volume → expected value captured",
+      "Decision table: eligible customers ranked by churn risk and EV",
+      "Deciles/lift-style view to defend targeting strategy"
     ],
-    stack: ["Python", "Pandas", "Stats", "Azure", "Dashboard"],
-    liveUrl:
-      "https://sentinel-baseline-panel.victorioussand-a57f0952.centralus.azurecontainerapps.io/",
-    repoUrl: "https://github.com/btheard3/sentinel-forecaster",
-    status: "Live"
+    stack: ["Power BI", "DAX", "Data Modeling", "Decision Support"],
+    // liveUrl: "https://app.powerbi.com/....",
+    repoUrl: "https://github.com/btheard3/churnsense",
+    status: "Repo"
   },
   {
-    title: "Volatility Alpha Engine (VAE)",
-    subtitle: "Volatility regimes, research pipeline, and live screening",
+    title: "SupportOps",
+    subtitle: "Support operations analytics (routing, SLA, backlog, deflection)",
     whyItMatters:
-      "Volatility drives risk. VAE studies regimes, engineers features, and surfaces volatility context in a live screener.",
+      "Support is an ops system: tickets flow in, SLAs get missed, backlog piles up. SupportOps turns ticket telemetry into governed KPIs, routing insights, and a dashboard leaders can run weekly.",
     highlights: [
-      "Regime analysis + feature engineering pipeline",
-      "Backtesting framework for rule-based signals",
-      "Live screener surface (Streamlit on GCP)"
+      "Governed KPIs: SLA, backlog aging, throughput, reopen rate",
+      "Routing + prioritization views (category, priority, channel, language)",
+      "Deflection/self-serve opportunities from ticket themes"
     ],
-    stack: ["Python", "DuckDB", "Research", "GCP", "Streamlit"],
-    liveUrl: "https://vae-screener-10109427624.us-central1.run.app/",
-    repoUrl: "https://github.com/btheard3/volatility-alpha-engine",
-    status: "Live"
+    stack: ["SQL", "Power BI", "Data Modeling", "Ops Analytics"],
+    repoUrl: "https://github.com/btheard3/supportops",
+    status: "Repo"
   },
   {
-    title: "Financial News NLP",
-    subtitle: "Narrative + topic analysis across major outlets",
+    title: "TestWise",
+    subtitle: "A/B testing + decision framework for product/ops changes",
     whyItMatters:
-      "Turns noisy headlines into interpretable themes so you can see what the market is focused on — without pretending headlines are a price oracle.",
+      "Most experiments fail because the question is fuzzy. TestWise turns experimentation into a repeatable workflow: hypothesis → metrics → design → interpretation → decision.",
     highlights: [
-      "Compares narrative emphasis across CNBC / Reuters / The Guardian",
-      "Interpretable baseline (TF-IDF) + topic discovery",
-      "Human-readable insights for reporting and analysis"
+      "Experiment design templates (MDE, power, guardrails)",
+      "KPI definitions + decision rules (stop/ship/iterate)",
+      "Post-test interpretation that’s stakeholder-friendly"
     ],
-    stack: ["Python", "NLP", "Topic Modeling", "Dashboard"],
-    liveUrl: "http://alb-financial-news-nlp-27107617.us-east-2.elb.amazonaws.com/",
-    repoUrl: "https://github.com/btheard3/financial-news-nlp",
-    status: "Live"
+    stack: ["Statistics", "SQL", "Power BI", "Experimentation"],
+    repoUrl: "https://github.com/btheard3/testwise",
+    status: "Repo"
   },
   {
-    title: "EarningsEdge",
-    subtitle: "Earnings event analysis + evaluation dashboard artifacts",
+    title: "DemandSignal",
+    subtitle: "Demand forecasting under uncertainty (planning + staffing)",
     whyItMatters:
-      "Earnings are recurring catalysts that reprice uncertainty. EarningsEdge evaluates post-earnings behavior to support research and trade planning.",
+      "Forecasting isn’t about perfect accuracy — it’s about better decisions. DemandSignal forecasts demand ranges and helps teams plan staffing, inventory, and service capacity.",
     highlights: [
-      "Earnings-event analysis + evaluation artifacts",
-      "Dashboard-style UI for exploration and review",
-      "Built to be reproducible and portfolio-ready"
+      "Forecasts with uncertainty bands (not one magic number)",
+      "Error tracking by segment + time window for accountability",
+      "Planning views translating forecasts into staffing actions"
     ],
-    stack: ["Python", "Evaluation", "Artifacts", "UI"],
-    liveUrl: "https://earningsedge.netlify.app/",
-    repoUrl: "https://github.com/btheard3/earningsedge",
-    status: "Live"
+    stack: ["Python", "Time Series", "SQL", "Forecasting"],
+    repoUrl: "https://github.com/btheard3/demandsignal",
+    status: "Repo"
   }
 ];
 
 const CONTACT = {
   name: "Brandon Theard",
-  title: "Data Scientist | Decision-Support Systems",
+  title: "Business Intelligence Analyst | Decision-Support Systems",
   github: "https://github.com/btheard3",
   linkedin: "https://www.linkedin.com/in/brandon-theard-811b38131",
   email: "btheard4@outlook.com"
@@ -85,30 +81,28 @@ const CONTACT = {
 
 const BLOGS = [
   {
-    key: "sentinel",
-    title: "Sentinel Forecaster",
-    subtitle: "Options sweep interpreter — decision support, not a bot",
-    url: "https://medium.com/@btheard1/sentinel-forecaster-a876daf05c84"
+    key: "churnsense",
+    title: "ChurnSense",
+    subtitle: "Turning churn risk into a capacity-aware retention decision",
+    url: "https://medium.com/@btheard1"
   },
   {
-    key: "vae",
-    title: "Volatility Alpha Engine (VAE)",
-    subtitle: "Volatility regimes, research pipeline, live screener",
-    url: "https://medium.com/@btheard1/volatility-alpha-engine-17b301afd4c4"
+    key: "supportops",
+    title: "SupportOps",
+    subtitle: "Support telemetry → governed KPIs → weekly ops decisions",
+    url: "https://medium.com/@btheard1"
   },
   {
-    key: "earningsedge",
-    title: "EarningsEdge",
-    subtitle: "What earnings volatility actually looks like",
-    url:
-      "https://medium.com/@btheard1/earningsedge-what-earnings-volatility-actually-looks-like-and-why-its-often-misread-460b67552359"
+    key: "testwise",
+    title: "TestWise",
+    subtitle: "A/B testing framework you can actually defend",
+    url: "https://medium.com/@btheard1"
   },
   {
-    key: "nlp",
-    title: "Financial News NLP",
-    subtitle: "Listening to the market instead of predicting it",
-    url:
-      "https://medium.com/@btheard1/financial-news-nlp-listening-to-the-market-instead-of-predicting-it-08e6337f5a56"
+    key: "demandsignal",
+    title: "DemandSignal",
+    subtitle: "Forecasting under uncertainty for planning and staffing",
+    url: "https://medium.com/@btheard1"
   }
 ];
 
@@ -146,45 +140,47 @@ function ExternalLink({
 function getTags(p: Project): string[] {
   const tags = new Set<string>();
 
-  tags.add(p.status.toLowerCase()); // live | repo
-  p.stack.forEach((s) => tags.add(s.toLowerCase()));
+  tags.add(p.status.toLowerCase());
+  p.stack.forEach((s) => tags.add(s.toLowerCase().replace(/\s+/g, "")));
 
   const t = `${p.title} ${p.subtitle} ${p.whyItMatters}`.toLowerCase();
-  if (t.includes("nlp") || t.includes("topic") || t.includes("headline")) tags.add("nlp");
-  if (t.includes("options") || t.includes("sweep") || t.includes("trading")) tags.add("trading");
-  if (t.includes("volatility") || t.includes("regime")) tags.add("volatility");
-  if (t.includes("dashboard") || p.stack.some((x) => x.toLowerCase() === "dashboard")) tags.add("dashboard");
-  if (p.stack.some((x) => x.toLowerCase() === "research")) tags.add("research");
-  if (p.stack.some((x) => x.toLowerCase() === "streamlit")) tags.add("dashboard");
+
+  if (t.includes("power bi") || p.stack.some((x) => x.toLowerCase() === "power bi")) tags.add("powerbi");
+  if (t.includes("dax")) tags.add("dax");
+  if (t.includes("sql")) tags.add("sql");
+  if (t.includes("experiment") || t.includes("a/b")) tags.add("experimentation");
+  if (t.includes("support") || t.includes("sla") || t.includes("backlog") || t.includes("ticket")) tags.add("support");
+  if (t.includes("forecast")) tags.add("forecasting");
+  if (t.includes("dashboard") || t.includes("powerbi")) tags.add("dashboard");
 
   return Array.from(tags);
 }
 
 function summarizeThree(p: Project): { problem: string; approach: string; result: string } {
   switch (p.title) {
-    case "Sentinel Forecaster":
+    case "ChurnSense":
       return {
-        problem: "Sweeps are noisy; raw activity gets misread as signal.",
-        approach: "Score context (direction, vol regime, expected move) from historical patterns.",
-        result: "Explainable triage + live dashboard for fast, consistent reviews."
+        problem: "Retention teams have limited capacity; targeting often becomes guesswork.",
+        approach: "Model churn risk + expected value and simulate capacity-constrained outreach in Power BI.",
+        result: "A defendable decision workflow: who to contact, cost, and EV captured."
       };
-    case "Volatility Alpha Engine (VAE)":
+    case "SupportOps":
       return {
-        problem: "Volatility shifts regimes—risk models break when context changes.",
-        approach: "Regime research + feature pipeline + screening surface for volatility context.",
-        result: "Live screener + research artifacts to support safer decision-making."
+        problem: "Support teams drown in tickets; SLA misses are discovered late and fixes are reactive.",
+        approach: "Model ticket telemetry → define governed KPIs → build ops dashboards for routing and backlog control.",
+        result: "Faster triage, clearer accountability, and better weekly ops decisions."
       };
-    case "Financial News NLP":
+    case "TestWise":
       return {
-        problem: "News is loud; it’s hard to separate narratives from noise.",
-        approach: "Interpretable NLP (TF-IDF + topic discovery) across multiple outlets.",
-        result: "Clear theme + outlet comparison for reporting and narrative tracking."
+        problem: "Teams ship changes without proving impact (or run messy experiments).",
+        approach: "Standardize hypothesis, metrics, design, and decision rules for A/B tests.",
+        result: "Cleaner experiments and decisions stakeholders trust."
       };
-    case "EarningsEdge":
+    case "DemandSignal":
       return {
-        problem: "Earnings reprice uncertainty; most reviews are ad-hoc and inconsistent.",
-        approach: "Evaluate post-earnings behavior and publish consistent artifacts for review.",
-        result: "A live dashboard + reproducible repo to scale earnings research."
+        problem: "Planning breaks when demand is uncertain and forecasts are brittle.",
+        approach: "Forecast ranges, track errors, and translate predictions into staffing/planning actions.",
+        result: "More resilient planning and fewer surprise outages."
       };
     default:
       return {
@@ -201,64 +197,59 @@ function getProofPanel(p: Project): {
   reproTip: string;
 } {
   switch (p.title) {
-    case "Sentinel Forecaster":
+    case "ChurnSense":
       return {
         datasetNote:
-          "Dataset: TradyFlow options sweeps (Kaggle). Core fields: ticker, timestamp, strike/expiry, call/put, premium, volume, OI, and trade metadata used to derive context features.",
+          "Dataset: Telco Customer Churn (Kaggle). Modeled as a star schema in Power BI; DAX measures compute churn risk and expected value to support capacity-aware targeting.",
         proofPoints: [
-          "Live dashboard shows the same scoring logic used in the repo",
-          "Readable scoring breakdown (no “black box” magic)",
-          "Clear separation: data → features → scoring → UI"
+          "Power BI model + DAX measures are documented in the repo",
+          "Page 1 supports the decision (who to contact, costs, EV)",
+          "Page 2 explains the strategy (deciles / lift-style reasoning)"
         ],
         reproTip:
-          "Repro: open the repo → follow the README install steps (requirements + env) → run the local app entrypoint. If you’re rushed, use the live app link and then read the README for the exact pipeline."
+          "Repro: clone repo → open .pbix → refresh data → review measures and pages → export screenshots for portfolio/resume."
       };
-
-    case "Volatility Alpha Engine (VAE)":
+    case "SupportOps":
       return {
         datasetNote:
-          "Dataset: market history + volatility features (DuckDB-backed). Includes OHLCV-style price history + derived vol/regime features stored locally for fast iteration; exact sources + build steps are documented in the repo.",
+          "Dataset: Multilingual Customer Support Tickets (Kaggle). Core fields: timestamps, category, priority, channel, language, and ticket text used for themes/deflection candidates.",
         proofPoints: [
-          "DuckDB research pipeline (fast, portable, reproducible)",
-          "Feature engineering + regime logic is in notebooks/scripts",
-          "Streamlit screener is deployed to prove it runs end-to-end"
+          "Star schema: Tickets fact + Dimensions (Category, Channel, Priority, Time, Language)",
+          "KPI layer: SLA %, backlog aging buckets, throughput, reopen rate",
+          "Ops views: routing hot spots + deflection opportunities"
         ],
         reproTip:
-          "Repro: clone repo → create venv → install requirements → build/populate DuckDB per README → run Streamlit screener locally. The live screener matches the same artifact flow."
+          "Repro: clone repo → run SQL transforms (or notebooks) → open Power BI dashboard → validate KPI definitions against the data model."
       };
-
-    case "Financial News NLP":
+    case "TestWise":
       return {
         datasetNote:
-          "Dataset: financial news headlines from CNBC / Reuters / The Guardian (snapshot dataset used in the repo). Core fields: headline text, source, published timestamp (plus any available metadata).",
+          "Dataset: placeholder (A/B testing or experimentation dataset). Focus is correct design + interpretation, not flashy charts.",
         proofPoints: [
-          "Interpretable baseline: TF-IDF + topic discovery (no gimmicks)",
-          "Outlet comparison tables/plots for narrative emphasis",
-          "Deployed service proves the pipeline is runnable outside notebooks"
+          "Experiment template: hypothesis → metrics → design → decision",
+          "Guardrails + practical interpretation for stakeholders",
+          "Reusable framework (not one-off analysis)"
         ],
         reproTip:
-          "Repro: open repo → follow README to install deps + run the pipeline locally (or via Docker if provided). The goal is repeatable topic outputs + outlet comparison, not one-off notebook results."
+          "Repro: clone repo → follow the test templates + run SQL/Python analysis → review Power BI summary."
       };
-
-    case "EarningsEdge":
+    case "DemandSignal":
       return {
         datasetNote:
-          "Dataset: earnings calendar + price history around events (evaluation windows). Outputs are stored as reproducible artifacts (CSVs/metrics) that power the dashboard UI; sources and generation steps live in the repo.",
+          "Dataset: placeholder (time-series demand dataset). Focus is forecasting with uncertainty and decision translation.",
         proofPoints: [
-          "Artifact-first workflow (metrics/CSVs) so results are auditable",
-          "Dashboard reads published artifacts (stable + reviewable)",
-          "Clear separation: research generation → UI consumption"
+          "Forecast + uncertainty bands + error tracking",
+          "Decision views: staffing/planning implications",
+          "Reproducible pipeline + documentation"
         ],
         reproTip:
-          "Repro: repo README has the exact commands to regenerate artifacts and run the UI. If you only do one thing: regenerate artifacts, then start the dashboard—everything else is just plumbing."
+          "Repro: clone repo → run forecasting notebook/script → open dashboard summary."
       };
-
     default:
       return {
-        datasetNote:
-          "Dataset: documented in the project repo (source, timeframe, and key fields).",
-        proofPoints: ["Deployed app + repo show the end-to-end path."],
-        reproTip: "Repro: follow the repo README to install dependencies and run locally."
+        datasetNote: "Dataset documented in the project repo.",
+        proofPoints: ["Repo shows the end-to-end path."],
+        reproTip: "Repro: follow the README."
       };
   }
 }
@@ -298,9 +289,9 @@ function ProjectCard({ p, onOpen }: { p: Project; onOpen: (p: Project) => void }
 
       <div className="cardLinks">
         {p.liveUrl ? (
-          <ExternalLink href={p.liveUrl}>Open live app</ExternalLink>
+          <ExternalLink href={p.liveUrl}>Open live dashboard</ExternalLink>
         ) : (
-          <span className="muted">Live app: not deployed</span>
+          <span className="muted">Live: not deployed yet</span>
         )}
         <ExternalLink href={p.repoUrl}>View repo</ExternalLink>
         <span className="muted" style={{ marginLeft: "auto" }}>
@@ -386,13 +377,7 @@ function Modal({
   );
 }
 
-function BlogModal({
-  open,
-  onClose
-}: {
-  open: boolean;
-  onClose: () => void;
-}) {
+function BlogModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   useEffect(() => {
     if (!open) return;
 
@@ -454,8 +439,8 @@ function BlogModal({
           </div>
 
           <div className="archBox" style={{ marginTop: 14 }}>
-            {`Tip: if a hiring manager clicks one thing, it's the blog.
-It explains intent + tradeoffs faster than a repo ever will.`}
+            {`Tip: in BI interviews, the dashboard screenshot hooks them.
+The KPI definitions + model logic win them.`}
           </div>
         </div>
       </div>
@@ -465,24 +450,26 @@ It explains intent + tradeoffs faster than a repo ever will.`}
 
 export default function App() {
   const [query, setQuery] = useState("");
-  const [activeFilters, setActiveFilters] = useState<string[]>(["live"]);
+  const [activeFilters, setActiveFilters] = useState<string[]>(["repo"]);
   const [selected, setSelected] = useState<Project | null>(null);
   const [blogsOpen, setBlogsOpen] = useState(false);
 
   const featured = useMemo<Project>(() => {
-    const byTitle = projects.find((p) => p.title === "Sentinel Forecaster");
+    const byTitle = projects.find((p) => p.title === "ChurnSense");
     return byTitle ?? projects[0];
   }, []);
 
   const filterOptions = useMemo(
     () => [
-      { key: "live", label: "Live" },
       { key: "repo", label: "Repo" },
-      { key: "nlp", label: "NLP" },
-      { key: "trading", label: "Trading" },
-      { key: "volatility", label: "Volatility" },
+      { key: "live", label: "Live" },
+      { key: "powerbi", label: "Power BI" },
+      { key: "dax", label: "DAX" },
+      { key: "sql", label: "SQL" },
       { key: "dashboard", label: "Dashboards" },
-      { key: "research", label: "Research" }
+      { key: "support", label: "Support Ops" },
+      { key: "experimentation", label: "Experimentation" },
+      { key: "forecasting", label: "Forecasting" }
     ],
     []
   );
@@ -529,7 +516,7 @@ export default function App() {
 
   return (
     <div className="page">
-      {/* Minimal styles so it works immediately */}
+      {/* keep your existing style injection unchanged */}
       <style>{`
         .pillBtn { padding: 8px 12px; border-radius: 999px; }
         .pillBtn.active { box-shadow: 0 0 0 1px rgba(255,255,255,0.18) inset; }
@@ -547,7 +534,6 @@ export default function App() {
         }
         .searchInput:focus { border-color: rgba(255,255,255,0.22); }
 
-        /* NEW: hero photo layout */
         .heroLayout { display:flex; align-items:center; justify-content:space-between; gap:22px; }
         .heroCopy { flex:1; min-width:280px; }
         .heroPhotoWrap { width:180px; flex:0 0 180px; display:flex; justify-content:flex-end; }
@@ -641,16 +627,6 @@ export default function App() {
           line-height: 1.35;
           white-space: pre-wrap;
         }
-        .navBtn {
-          border: 0;
-          background: transparent;
-          color: inherit;
-          padding: 0;
-          cursor: pointer;
-          font: inherit;
-          opacity: 0.9;
-        }
-        .navBtn:hover { opacity: 1; text-decoration: underline; }
         .blogGrid {
           display: grid;
           grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -685,13 +661,14 @@ export default function App() {
         </div>
 
         <div className="hero">
-          {/* NEW: hero layout with photo */}
           <div className="heroLayout">
             <div className="heroCopy">
-              <h1 className="heroTitle">Decision-support systems for markets, narratives, and volatility.</h1>
+              <h1 className="heroTitle">
+                Decision-support dashboards for retention, support operations, experimentation, and forecasting.
+              </h1>
               <p className="heroSubtitle">
-                I ship interpretable analytics products — not vibes. Click any card for the 60-second overview,
-                then jump to the live app or repo.
+                I build BI products that turn messy operational data into defendable business decisions — governed KPIs,
+                clear models, and dashboards leaders can run weekly.
               </p>
 
               <div className="heroCtas">
@@ -722,22 +699,17 @@ export default function App() {
                 </div>
                 <div className="signal">
                   <div className="signalNum">{liveCount}</div>
-                  <div className="signalLbl">Live apps</div>
+                  <div className="signalLbl">Live dashboards</div>
                 </div>
                 <div className="signal">
                   <div className="signalNum">{repoCount}</div>
-                  <div className="signalLbl">Research repos</div>
+                  <div className="signalLbl">Repos</div>
                 </div>
               </div>
             </div>
 
             <div className="heroPhotoWrap">
-              <img
-                src="/headshot.jpg"
-                alt="Brandon Theard"
-                className="heroPhoto"
-                loading="lazy"
-              />
+              <img src="/headshot.jpg" alt="Brandon Theard" className="heroPhoto" loading="lazy" />
             </div>
           </div>
 
@@ -757,11 +729,11 @@ export default function App() {
               <div className="featuredCtas">
                 {featured.liveUrl ? (
                   <a className="btn" href={featured.liveUrl} target="_blank" rel="noreferrer">
-                    Open live app ↗
+                    Open live dashboard ↗
                   </a>
                 ) : (
                   <span className="btn secondary" style={{ opacity: 0.7, cursor: "not-allowed" }}>
-                    Live app not deployed
+                    Live not deployed
                   </span>
                 )}
                 <button className="btn secondary" type="button" onClick={() => openDetails(featured)}>
@@ -799,14 +771,16 @@ export default function App() {
         <section id="projects" className="section">
           <div className="sectionHeader">
             <h2>Projects</h2>
-            <p className="muted">Click a card for a 60-second overview, then jump to the live app or repo.</p>
+            <p className="muted">
+              Click a card for a 60-second overview, then jump to the repo (and live dashboard when available).
+            </p>
 
             <div className="searchRow">
               <input
                 className="searchInput"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search: volatility, NLP, dashboard, DuckDB, options…"
+                placeholder="Search: Power BI, DAX, SQL, SLA, backlog, forecasting, A/B…"
                 aria-label="Search projects"
               />
               <button type="button" className="btn secondary" onClick={() => setQuery("")}>
@@ -846,25 +820,25 @@ export default function App() {
 
           <div className="about">
             <p>
-              I’m Brandon — a data scientist who builds <b>interpretable</b> systems that help people make better calls
-              under uncertainty. My work blends NLP, quantitative research, and product-quality dashboards.
+              I’m Brandon — I build <b>BI decision-support systems</b> that make messy operational data useful: governed
+              KPIs, clear models, and dashboards that drive action.
             </p>
 
             <div className="aboutRow">
               <div className="aboutCard">
                 <h3>What I optimize for</h3>
                 <ul>
-                  <li>Interpretability before hype</li>
-                  <li>Reproducibility (runs clean, reads clean)</li>
-                  <li>Fast feedback loops (dashboards + artifacts)</li>
+                  <li>Clarity: KPI definitions you can defend</li>
+                  <li>Trust: reproducible models + transparent logic</li>
+                  <li>Speed: dashboards built for real decisions</li>
                 </ul>
               </div>
               <div className="aboutCard">
                 <h3>What you’ll see here</h3>
                 <ul>
-                  <li>Real deployments (not just notebooks)</li>
-                  <li>Clear “why this exists” framing</li>
-                  <li>Portfolio-ready documentation</li>
+                  <li>Power BI + DAX + data modeling</li>
+                  <li>Support telemetry → ops KPIs (SLA, backlog, routing)</li>
+                  <li>Experimentation + forecasting as decision tools</li>
                 </ul>
               </div>
             </div>
@@ -903,7 +877,7 @@ export default function App() {
         </section>
       </main>
 
-      <Modal open={!!selected} onClose={closeDetails} title={selected?.title ?? "Project"}>
+      <Modal open={!!selected} onClose={() => setSelected(null)} title={selected?.title ?? "Project"}>
         {selected && detail && proof && (
           <div className="detailGrid">
             <div className="detailCard">
@@ -936,11 +910,11 @@ export default function App() {
               <div className="linkRow">
                 {selected.liveUrl ? (
                   <ExternalLink href={selected.liveUrl} className="btn">
-                    Open live app
+                    Open live dashboard
                   </ExternalLink>
                 ) : (
                   <span className="btn secondary" style={{ opacity: 0.7, cursor: "not-allowed" }}>
-                    Live app not deployed
+                    Live not deployed
                   </span>
                 )}
                 <ExternalLink href={selected.repoUrl} className="btn secondary">
@@ -957,7 +931,7 @@ export default function App() {
               <div className="stackRow">
                 {getTags(selected)
                   .filter((t) =>
-                    ["live", "repo", "nlp", "trading", "volatility", "dashboard", "research"].includes(t)
+                    ["live", "repo", "powerbi", "dax", "sql", "dashboard", "support", "experimentation", "forecasting"].includes(t)
                   )
                   .map((t) => (
                     <Pill key={t}>{t.toUpperCase()}</Pill>
@@ -965,11 +939,11 @@ export default function App() {
               </div>
 
               <div className="detailK">Mini diagram</div>
-              <div className="archBox">{`User → UI (Dashboard)
-  → Data/Features
-  → Modeling / Scoring
-  → Artifacts + Explanations
-  → Deploy (Cloud / GitHub)`}</div>
+              <div className="archBox">{`Business question
+  → Data model (star schema)
+  → Measures (DAX / SQL)
+  → Decision views (dashboards)
+  → Action + weekly reporting cadence`}</div>
 
               <div className="detailK">Dataset</div>
               <div className="muted">{proof.datasetNote}</div>
