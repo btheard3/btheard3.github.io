@@ -709,7 +709,7 @@ export default function App() {
             </div>
 
             <div className="heroPhotoWrap">
-              <img src="/headshot.jpg" alt="Brandon Theard" className="heroPhoto" loading="lazy" />
+              <img src="/portfolioheadshot.jpg" alt="Brandon Theard" className="heroPhoto" loading="lazy" />
             </div>
           </div>
 
