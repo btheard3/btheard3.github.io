@@ -534,9 +534,9 @@ export default function App() {
         }
         .searchInput:focus { border-color: rgba(255,255,255,0.22); }
 
-        .heroLayout { display:flex; align-items:center; justify-content:space-between; gap:22px; }
+        .heroLayout { display:flex; align-items:center; justify-content:space-between; gap:22px; position: relative; z-index: 1; }
         .heroCopy { flex:1; min-width:280px; }
-        .heroPhotoWrap { width:180px; flex:0 0 180px; display:flex; justify-content:flex-end; }
+        .heroPhotoWrap { width:180px; flex:0 0 180px; display:flex; justify-content:flex-end; position: relative; z-index: 10; }
         .heroPhoto {
           width:180px; height:180px;
           border-radius:999px;
@@ -544,6 +544,11 @@ export default function App() {
           border:1px solid rgba(255,255,255,0.10);
           box-shadow:0 10px 30px rgba(0,0,0,0.35);
           background:rgba(255,255,255,0.04);
+
+          position: relative;
+          z-index: 10;
+          opacity: 1 !important;
+          filter: none !important;
         }
         @media (max-width: 860px) {
           .heroLayout { flex-direction:column; align-items:flex-start; }
