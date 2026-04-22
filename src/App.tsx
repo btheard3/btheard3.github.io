@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 
 type Project = {
   title: string;
@@ -13,98 +13,43 @@ type Project = {
 
 const projects: Project[] = [
   {
+    title: "BatchBridge",
+    subtitle: "Customer analytics, retention, and revenue insight framework",
+    whyItMatters:
+      "Businesses often know revenue totals but not which customers drive value, which customers are disengaging, or where revenue is at risk. BatchBridge turns transaction data into retention, churn, and CLV insights that support targeted business action.",
+    highlights: [
+      "Analyzed 18.5K+ cleaned transactions across 4.3K+ customers using SQL and Python",
+      "Identified ~61.6% churn rate and sharp early-stage customer drop-off",
+      "Built RFM segmentation, cohort retention analysis, CLV modeling, and KPI reporting",
+      "Found that At Risk customers generated the highest average CLV, revealing revenue recovery opportunities"
+    ],
+    stack: ["SQL", "Python", "Excel", "Cohort Analysis", "Customer Segmentation"],
+    repoUrl: "https://github.com/btheard3/batchbridge",
+    status: "Repo"
+  },
+  {
     title: "ChurnSense",
-    subtitle: "Customer churn risk + retention decision simulator (Power BI)",
+    subtitle: "Customer churn analytics and retention decision support",
     whyItMatters:
-      "Customer retention is cheaper than acquisition. ChurnSense turns churn risk into a measurable decision: who to contact, what it costs, and what value you capture under capacity constraints.",
+      "Retention teams need to know which customers to prioritize and why. ChurnSense frames churn as a business decision problem by combining risk, targeting logic, and expected value.",
     highlights: [
-      "What-if capacity slider ties outreach volume → expected value captured",
-      "Decision table: eligible customers ranked by churn risk and EV",
-      "Deciles/lift-style view to defend targeting strategy"
+      "Built a churn analytics workflow using customer records and feature-based risk analysis",
+      "Designed retention-focused decision logic to support prioritized outreach",
+      "Translated churn signals into stakeholder-friendly reporting and business interpretation"
     ],
-    stack: ["Power BI", "DAX", "Data Modeling", "Decision Support"],
-    // liveUrl: "https://app.powerbi.com/....",
+    stack: ["SQL", "Python", "Power BI", "Data Modeling"],
     repoUrl: "https://github.com/btheard3/churnsense",
-    status: "Repo"
-  },
-  {
-    title: "SupportOps",
-    subtitle: "Support operations analytics (routing, SLA, backlog, deflection)",
-    whyItMatters:
-      "Support is an ops system: tickets flow in, SLAs get missed, backlog piles up. SupportOps turns ticket telemetry into governed KPIs, routing insights, and a dashboard leaders can run weekly.",
-    highlights: [
-      "Governed KPIs: SLA, backlog aging, throughput, reopen rate",
-      "Routing + prioritization views (category, priority, channel, language)",
-      "Deflection/self-serve opportunities from ticket themes"
-    ],
-    stack: ["SQL", "Power BI", "Data Modeling", "Ops Analytics"],
-    repoUrl: "https://github.com/btheard3/supportops",
-    status: "Repo"
-  },
-  {
-    title: "TestWise",
-    subtitle: "A/B testing + decision framework for product/ops changes",
-    whyItMatters:
-      "Most experiments fail because the question is fuzzy. TestWise turns experimentation into a repeatable workflow: hypothesis → metrics → design → interpretation → decision.",
-    highlights: [
-      "Experiment design templates (MDE, power, guardrails)",
-      "KPI definitions + decision rules (stop/ship/iterate)",
-      "Post-test interpretation that’s stakeholder-friendly"
-    ],
-    stack: ["Statistics", "SQL", "Power BI", "Experimentation"],
-    repoUrl: "https://github.com/btheard3/testwise",
-    status: "Repo"
-  },
-  {
-    title: "DemandSignal",
-    subtitle: "Demand forecasting under uncertainty (planning + staffing)",
-    whyItMatters:
-      "Forecasting isn’t about perfect accuracy — it’s about better decisions. DemandSignal forecasts demand ranges and helps teams plan staffing, inventory, and service capacity.",
-    highlights: [
-      "Forecasts with uncertainty bands (not one magic number)",
-      "Error tracking by segment + time window for accountability",
-      "Planning views translating forecasts into staffing actions"
-    ],
-    stack: ["Python", "Time Series", "SQL", "Forecasting"],
-    repoUrl: "https://github.com/btheard3/demandsignal",
     status: "Repo"
   }
 ];
 
 const CONTACT = {
   name: "Brandon Theard",
-  title: "Business Intelligence Analyst | Decision-Support Systems",
+  title: "Data & Business Analyst | SQL | Python | Excel",
   github: "https://github.com/btheard3",
   linkedin: "https://www.linkedin.com/in/brandon-theard-811b38131",
-  email: "btheard4@outlook.com"
+  email: "btheard1@gmail.com"
 };
-
-const BLOGS = [
-  {
-    key: "churnsense",
-    title: "ChurnSense",
-    subtitle: "Turning churn risk into a capacity-aware retention decision",
-    url: "https://medium.com/@btheard1"
-  },
-  {
-    key: "supportops",
-    title: "SupportOps",
-    subtitle: "Support telemetry → governed KPIs → weekly ops decisions",
-    url: "https://medium.com/@btheard1"
-  },
-  {
-    key: "testwise",
-    title: "TestWise",
-    subtitle: "A/B testing framework you can actually defend",
-    url: "https://medium.com/@btheard1"
-  },
-  {
-    key: "demandsignal",
-    title: "DemandSignal",
-    subtitle: "Forecasting under uncertainty for planning and staffing",
-    url: "https://medium.com/@btheard1"
-  }
-];
 
 function Pill({ children }: { children: React.ReactNode }) {
   return <span className="pill">{children}</span>;
@@ -145,48 +90,42 @@ function getTags(p: Project): string[] {
 
   const t = `${p.title} ${p.subtitle} ${p.whyItMatters}`.toLowerCase();
 
-  if (t.includes("power bi") || p.stack.some((x) => x.toLowerCase() === "power bi")) tags.add("powerbi");
-  if (t.includes("dax")) tags.add("dax");
   if (t.includes("sql")) tags.add("sql");
-  if (t.includes("experiment") || t.includes("a/b")) tags.add("experimentation");
-  if (t.includes("support") || t.includes("sla") || t.includes("backlog") || t.includes("ticket")) tags.add("support");
-  if (t.includes("forecast")) tags.add("forecasting");
-  if (t.includes("dashboard") || t.includes("powerbi")) tags.add("dashboard");
+  if (t.includes("python")) tags.add("python");
+  if (t.includes("excel")) tags.add("excel");
+  if (t.includes("power bi") || t.includes("powerbi")) tags.add("powerbi");
+  if (t.includes("retention")) tags.add("retention");
+  if (t.includes("customer")) tags.add("customeranalytics");
+  if (t.includes("dashboard")) tags.add("dashboard");
 
   return Array.from(tags);
 }
 
 function summarizeThree(p: Project): { problem: string; approach: string; result: string } {
   switch (p.title) {
+    case "BatchBridge":
+      return {
+        problem:
+          "The business generated $8.9M+ in revenue but lacked visibility into churn, retention, and which customers were driving or risking future value.",
+        approach:
+          "Used SQL and Python to analyze 18.5K+ transactions across 4.3K+ customers, building RFM segmentation, cohort retention analysis, and CLV modeling.",
+        result:
+          "Found ~61.6% churn and revealed that At Risk customers had the highest average CLV, highlighting a major revenue recovery opportunity."
+      };
     case "ChurnSense":
       return {
-        problem: "Retention teams have limited capacity; targeting often becomes guesswork.",
-        approach: "Model churn risk + expected value and simulate capacity-constrained outreach in Power BI.",
-        result: "A defendable decision workflow: who to contact, cost, and EV captured."
-      };
-    case "SupportOps":
-      return {
-        problem: "Support teams drown in tickets; SLA misses are discovered late and fixes are reactive.",
-        approach: "Model ticket telemetry → define governed KPIs → build ops dashboards for routing and backlog control.",
-        result: "Faster triage, clearer accountability, and better weekly ops decisions."
-      };
-    case "TestWise":
-      return {
-        problem: "Teams ship changes without proving impact (or run messy experiments).",
-        approach: "Standardize hypothesis, metrics, design, and decision rules for A/B tests.",
-        result: "Cleaner experiments and decisions stakeholders trust."
-      };
-    case "DemandSignal":
-      return {
-        problem: "Planning breaks when demand is uncertain and forecasts are brittle.",
-        approach: "Forecast ranges, track errors, and translate predictions into staffing/planning actions.",
-        result: "More resilient planning and fewer surprise outages."
+        problem:
+          "Retention teams often know churn is a risk but lack a clear way to prioritize outreach and justify who should be contacted first.",
+        approach:
+          "Built a churn-focused analytics workflow combining customer risk signals, decision logic, and reporting for business stakeholders.",
+        result:
+          "Created a clearer retention decision framework that translates churn risk into actionable customer prioritization."
       };
     default:
       return {
-        problem: "Unclear signal in noisy data.",
-        approach: "Build interpretable methods + reproducible pipeline.",
-        result: "Decision support you can defend."
+        problem: "A business problem was identified and translated into measurable analytics questions.",
+        approach: "Built a structured analysis pipeline using SQL, Python, and business-facing reporting.",
+        result: "Produced decision-ready insights that support business action."
       };
   }
 }
@@ -197,53 +136,29 @@ function getProofPanel(p: Project): {
   reproTip: string;
 } {
   switch (p.title) {
+    case "BatchBridge":
+      return {
+        datasetNote:
+          "Dataset: cleaned transactional retail data with 18.5K+ transactions across 4.3K+ customers. Analysis focused on retention, customer segmentation, churn, and lifetime value.",
+        proofPoints: [
+          "SQL used for KPI aggregation, churn logic, lifespan, cohort base tables, and CLV base calculations",
+          "Python used for RFM segmentation, retention matrix construction, heatmap visualization, and CLV analysis",
+          "README and visuals show the business problem, approach, and quantified findings clearly"
+        ],
+        reproTip:
+          "Repro: clone repo → run notebooks in order (01–05) → review SQL scripts → view README visuals and outputs."
+      };
     case "ChurnSense":
       return {
         datasetNote:
-          "Dataset: Telco Customer Churn (Kaggle). Modeled as a star schema in Power BI; DAX measures compute churn risk and expected value to support capacity-aware targeting.",
+          "Dataset: customer churn data used to evaluate retention risk and support outreach prioritization.",
         proofPoints: [
-          "Power BI model + DAX measures are documented in the repo",
-          "Page 1 supports the decision (who to contact, costs, EV)",
-          "Page 2 explains the strategy (deciles / lift-style reasoning)"
+          "Structured churn analysis workflow documented in the repo",
+          "Focus on translating churn signals into a decision-support framework",
+          "Project complements BatchBridge as a customer analytics case study"
         ],
         reproTip:
-          "Repro: clone repo → open .pbix → refresh data → review measures and pages → export screenshots for portfolio/resume."
-      };
-    case "SupportOps":
-      return {
-        datasetNote:
-          "Dataset: Multilingual Customer Support Tickets (Kaggle). Core fields: timestamps, category, priority, channel, language, and ticket text used for themes/deflection candidates.",
-        proofPoints: [
-          "Star schema: Tickets fact + Dimensions (Category, Channel, Priority, Time, Language)",
-          "KPI layer: SLA %, backlog aging buckets, throughput, reopen rate",
-          "Ops views: routing hot spots + deflection opportunities"
-        ],
-        reproTip:
-          "Repro: clone repo → run SQL transforms (or notebooks) → open Power BI dashboard → validate KPI definitions against the data model."
-      };
-    case "TestWise":
-      return {
-        datasetNote:
-          "Dataset: placeholder (A/B testing or experimentation dataset). Focus is correct design + interpretation, not flashy charts.",
-        proofPoints: [
-          "Experiment template: hypothesis → metrics → design → decision",
-          "Guardrails + practical interpretation for stakeholders",
-          "Reusable framework (not one-off analysis)"
-        ],
-        reproTip:
-          "Repro: clone repo → follow the test templates + run SQL/Python analysis → review Power BI summary."
-      };
-    case "DemandSignal":
-      return {
-        datasetNote:
-          "Dataset: placeholder (time-series demand dataset). Focus is forecasting with uncertainty and decision translation.",
-        proofPoints: [
-          "Forecast + uncertainty bands + error tracking",
-          "Decision views: staffing/planning implications",
-          "Reproducible pipeline + documentation"
-        ],
-        reproTip:
-          "Repro: clone repo → run forecasting notebook/script → open dashboard summary."
+          "Repro: clone repo → follow the project README → review analysis and business framing."
       };
     default:
       return {
@@ -291,7 +206,7 @@ function ProjectCard({ p, onOpen }: { p: Project; onOpen: (p: Project) => void }
         {p.liveUrl ? (
           <ExternalLink href={p.liveUrl}>Open live dashboard</ExternalLink>
         ) : (
-          <span className="muted">Live: not deployed yet</span>
+          <span className="muted">Live: not deployed</span>
         )}
         <ExternalLink href={p.repoUrl}>View repo</ExternalLink>
         <span className="muted" style={{ marginLeft: "auto" }}>
@@ -365,7 +280,7 @@ function Modal({
         <div className="modalHeader">
           <div>
             <div className="modalTitle">{title}</div>
-            <div className="muted">60-second overview + links + proof.</div>
+            <div className="muted">Business problem, approach, result, and proof.</div>
           </div>
           <button type="button" className="btn secondary" onClick={onClose}>
             Close
@@ -377,105 +292,28 @@ function Modal({
   );
 }
 
-function BlogModal({ open, onClose }: { open: boolean; onClose: () => void }) {
-  useEffect(() => {
-    if (!open) return;
-
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-
-    document.addEventListener("keydown", onKeyDown);
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.removeEventListener("keydown", onKeyDown);
-      document.body.style.overflow = "";
-    };
-  }, [open, onClose]);
-
-  if (!open) return null;
-
-  return (
-    <div
-      className="modalBackdrop"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Project blogs"
-      onMouseDown={(e) => {
-        if (e.target === e.currentTarget) onClose();
-      }}
-    >
-      <div className="modalCard">
-        <div className="modalHeader">
-          <div>
-            <div className="modalTitle">Project blogs</div>
-            <div className="muted">Short reads. Same framing as the portfolio cards.</div>
-          </div>
-          <button type="button" className="btn secondary" onClick={onClose}>
-            Close
-          </button>
-        </div>
-
-        <div className="modalBody">
-          <div className="blogGrid">
-            {BLOGS.map((b) => (
-              <div key={b.key} className="blogCard">
-                <div className="blogTitleRow">
-                  <div>
-                    <div className="blogTitle">{b.title}</div>
-                    <div className="muted">{b.subtitle}</div>
-                  </div>
-                  <span className="badge live">Medium</span>
-                </div>
-
-                <div className="linkRow" style={{ marginTop: 12 }}>
-                  <ExternalLink href={b.url} className="btn">
-                    Read blog
-                  </ExternalLink>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="archBox" style={{ marginTop: 14 }}>
-            {`Tip: in BI interviews, the dashboard screenshot hooks them.
-The KPI definitions + model logic win them.`}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export default function App() {
   const [query, setQuery] = useState("");
   const [activeFilters, setActiveFilters] = useState<string[]>(["repo"]);
   const [selected, setSelected] = useState<Project | null>(null);
-  const [blogsOpen, setBlogsOpen] = useState(false);
 
   const featured = useMemo<Project>(() => {
-    const byTitle = projects.find((p) => p.title === "ChurnSense");
+    const byTitle = projects.find((p) => p.title === "BatchBridge");
     return byTitle ?? projects[0];
   }, []);
 
   const filterOptions = useMemo(
     () => [
       { key: "repo", label: "Repo" },
-      { key: "live", label: "Live" },
-      { key: "powerbi", label: "Power BI" },
-      { key: "dax", label: "DAX" },
       { key: "sql", label: "SQL" },
-      { key: "dashboard", label: "Dashboards" },
-      { key: "support", label: "Support Ops" },
-      { key: "experimentation", label: "Experimentation" },
-      { key: "forecasting", label: "Forecasting" }
+      { key: "python", label: "Python" },
+      { key: "excel", label: "Excel" },
+      { key: "powerbi", label: "Power BI" },
+      { key: "retention", label: "Retention" },
+      { key: "customeranalytics", label: "Customer Analytics" }
     ],
     []
   );
-
-  const liveCount = useMemo(() => projects.filter((p) => p.status === "Live").length, []);
-  const repoCount = useMemo(() => projects.filter((p) => p.status === "Repo").length, []);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -508,15 +346,13 @@ export default function App() {
 
   const clearFilters = () => setActiveFilters([]);
 
-  const openDetails = (p: Project) => setSelected(p);
-  const closeDetails = () => setSelected(null);
-
   const detail = selected ? summarizeThree(selected) : null;
   const proof = selected ? getProofPanel(selected) : null;
 
+  const completedProjectCount = projects.length;
+
   return (
     <div className="page">
-      {/* keep your existing style injection unchanged */}
       <style>{`
         .pillBtn { padding: 8px 12px; border-radius: 999px; }
         .pillBtn.active { box-shadow: 0 0 0 1px rgba(255,255,255,0.18) inset; }
@@ -534,26 +370,19 @@ export default function App() {
         }
         .searchInput:focus { border-color: rgba(255,255,255,0.22); }
 
-        .heroLayout { display:flex; align-items:center; justify-content:space-between; gap:22px; position: relative; z-index: 1; }
-        .heroCopy { flex:1; min-width:280px; }
-        .heroPhotoWrap { width:180px; flex:0 0 180px; display:flex; justify-content:flex-end; position: relative; z-index: 10; }
-        .heroPhoto {
-          width:180px; height:180px;
-          border-radius:999px;
-          object-fit:cover;
-          border:1px solid rgba(255,255,255,0.10);
-          box-shadow:0 10px 30px rgba(0,0,0,0.35);
-          background:rgba(255,255,255,0.04);
-
+        .heroLayout {
+          display:flex;
+          align-items:flex-start;
+          justify-content:space-between;
+          gap:22px;
           position: relative;
-          z-index: 10;
-          opacity: 1 !important;
-          filter: none !important;
+          z-index: 1;
         }
-        @media (max-width: 860px) {
-          .heroLayout { flex-direction:column; align-items:flex-start; }
-          .heroPhotoWrap { width:148px; flex:0 0 auto; justify-content:flex-start; }
-          .heroPhoto { width:148px; height:148px; }
+
+        .heroCopy {
+          flex:1;
+          min-width:280px;
+          max-width: 920px;
         }
 
         .featuredStrip {
@@ -632,20 +461,6 @@ export default function App() {
           line-height: 1.35;
           white-space: pre-wrap;
         }
-        .blogGrid {
-          display: grid;
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-          gap: 12px;
-        }
-        @media (max-width: 900px) { .blogGrid { grid-template-columns: 1fr; } }
-        .blogCard {
-          padding: 14px;
-          border-radius: 16px;
-          border: 1px solid rgba(255,255,255,0.08);
-          background: rgba(255,255,255,0.02);
-        }
-        .blogTitleRow { display:flex; gap: 12px; justify-content: space-between; align-items:flex-start; }
-        .blogTitle { font-weight: 800; }
       `}</style>
 
       <header className="header">
@@ -668,12 +483,13 @@ export default function App() {
         <div className="hero">
           <div className="heroLayout">
             <div className="heroCopy">
-              <h1 className="heroTitle">
-                Decision-support dashboards for retention, support operations, experimentation, and forecasting.
-              </h1>
+              <h1 className="heroTitle">Data & Business Analyst | SQL • Python • Excel</h1>
               <p className="heroSubtitle">
-                I build BI products that turn messy operational data into defendable business decisions — governed KPIs,
-                clear models, and dashboards leaders can run weekly.
+                I analyze customer and business data to identify churn risk, improve retention, and uncover revenue
+                opportunities using SQL and Python.
+              </p>
+              <p className="muted" style={{ maxWidth: 760 }}>
+                Focused on customer analytics, KPI design, and decision-ready business insights.
               </p>
 
               <div className="heroCtas">
@@ -686,35 +502,22 @@ export default function App() {
                 <a className="btn secondary" href={CONTACT.linkedin} target="_blank" rel="noreferrer">
                   LinkedIn ↗
                 </a>
-
-                <button
-                  type="button"
-                  className="btn secondary"
-                  onClick={() => setBlogsOpen(true)}
-                  aria-label="Open blog list"
-                >
-                  Blog ↗
-                </button>
               </div>
 
               <div className="signalRow">
                 <div className="signal">
-                  <div className="signalNum">{projects.length}</div>
-                  <div className="signalLbl">Projects</div>
+                  <div className="signalNum">{completedProjectCount}</div>
+                  <div className="signalLbl">Completed projects</div>
                 </div>
                 <div className="signal">
-                  <div className="signalNum">{liveCount}</div>
-                  <div className="signalLbl">Live dashboards</div>
+                  <div className="signalNum">SQL</div>
+                  <div className="signalLbl">Core tool</div>
                 </div>
                 <div className="signal">
-                  <div className="signalNum">{repoCount}</div>
-                  <div className="signalLbl">Repos</div>
+                  <div className="signalNum">Customer</div>
+                  <div className="signalLbl">Analytics focus</div>
                 </div>
               </div>
-            </div>
-
-            <div className="heroPhotoWrap">
-              <img src="/portfolioheadshot.jpg" alt="Brandon Theard" className="heroPhoto" loading="lazy" />
             </div>
           </div>
 
@@ -732,16 +535,10 @@ export default function App() {
               </div>
 
               <div className="featuredCtas">
-                {featured.liveUrl ? (
-                  <a className="btn" href={featured.liveUrl} target="_blank" rel="noreferrer">
-                    Open live dashboard ↗
-                  </a>
-                ) : (
-                  <span className="btn secondary" style={{ opacity: 0.7, cursor: "not-allowed" }}>
-                    Live not deployed
-                  </span>
-                )}
-                <button className="btn secondary" type="button" onClick={() => openDetails(featured)}>
+                <span className="btn secondary" style={{ opacity: 0.7, cursor: "not-allowed" }}>
+                  Live not deployed
+                </span>
+                <button className="btn secondary" type="button" onClick={() => setSelected(featured)}>
                   Read 60-sec overview
                 </button>
               </div>
@@ -777,7 +574,7 @@ export default function App() {
           <div className="sectionHeader">
             <h2>Projects</h2>
             <p className="muted">
-              Click a card for a 60-second overview, then jump to the repo (and live dashboard when available).
+              Focused portfolio projects in customer analytics, churn, retention, and business decision support.
             </p>
 
             <div className="searchRow">
@@ -785,7 +582,7 @@ export default function App() {
                 className="searchInput"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search: Power BI, DAX, SQL, SLA, backlog, forecasting, A/B…"
+                placeholder="Search: SQL, Python, retention, customer analytics, Power BI..."
                 aria-label="Search projects"
               />
               <button type="button" className="btn secondary" onClick={() => setQuery("")}>
@@ -813,7 +610,7 @@ export default function App() {
 
           <div className="grid">
             {filtered.map((p) => (
-              <ProjectCard key={p.title} p={p} onOpen={openDetails} />
+              <ProjectCard key={p.title} p={p} onOpen={setSelected} />
             ))}
           </div>
         </section>
@@ -825,25 +622,25 @@ export default function App() {
 
           <div className="about">
             <p>
-              I’m Brandon — I build <b>BI decision-support systems</b> that make messy operational data useful: governed
-              KPIs, clear models, and dashboards that drive action.
+              I’m Brandon — a Data and Business Analyst focused on customer analytics, retention, and business
+              performance.
             </p>
 
             <div className="aboutRow">
               <div className="aboutCard">
-                <h3>What I optimize for</h3>
+                <h3>What I do</h3>
                 <ul>
-                  <li>Clarity: KPI definitions you can defend</li>
-                  <li>Trust: reproducible models + transparent logic</li>
-                  <li>Speed: dashboards built for real decisions</li>
+                  <li>Analyze transactional and customer data using SQL and Python</li>
+                  <li>Build segmentation, retention, and KPI frameworks</li>
+                  <li>Translate analysis into decision-ready business insights</li>
                 </ul>
               </div>
               <div className="aboutCard">
-                <h3>What you’ll see here</h3>
+                <h3>What this portfolio shows</h3>
                 <ul>
-                  <li>Power BI + DAX + data modeling</li>
-                  <li>Support telemetry → ops KPIs (SLA, backlog, routing)</li>
-                  <li>Experimentation + forecasting as decision tools</li>
+                  <li>Customer analytics and churn analysis</li>
+                  <li>Cohort retention and lifetime value modeling</li>
+                  <li>Business-oriented reporting and dashboard thinking</li>
                 </ul>
               </div>
             </div>
@@ -853,7 +650,7 @@ export default function App() {
         <section id="contact" className="section">
           <div className="sectionHeader">
             <h2>Contact</h2>
-            <p className="muted">Hiring manager? Cool. Curious human? Also cool.</p>
+            <p className="muted">If you're hiring for a Data Analyst or Business Analyst role, let's connect.</p>
           </div>
 
           <div className="contact">
@@ -913,15 +710,6 @@ export default function App() {
 
               <div className="detailK">Links</div>
               <div className="linkRow">
-                {selected.liveUrl ? (
-                  <ExternalLink href={selected.liveUrl} className="btn">
-                    Open live dashboard
-                  </ExternalLink>
-                ) : (
-                  <span className="btn secondary" style={{ opacity: 0.7, cursor: "not-allowed" }}>
-                    Live not deployed
-                  </span>
-                )}
                 <ExternalLink href={selected.repoUrl} className="btn secondary">
                   View repo
                 </ExternalLink>
@@ -929,14 +717,14 @@ export default function App() {
             </div>
 
             <div className="detailCard">
-              <div className="detailH">Proof + architecture</div>
-              <div className="muted">Not a dissertation — just enough to show this is real, reproducible work.</div>
+              <div className="detailH">Proof + structure</div>
+              <div className="muted">Enough to show the project is real, reproducible, and business-relevant.</div>
 
               <div className="detailK">Tags</div>
               <div className="stackRow">
                 {getTags(selected)
                   .filter((t) =>
-                    ["live", "repo", "powerbi", "dax", "sql", "dashboard", "support", "experimentation", "forecasting"].includes(t)
+                    ["live", "repo", "powerbi", "sql", "python", "excel", "dashboard", "retention", "customeranalytics"].includes(t)
                   )
                   .map((t) => (
                     <Pill key={t}>{t.toUpperCase()}</Pill>
@@ -944,11 +732,11 @@ export default function App() {
               </div>
 
               <div className="detailK">Mini diagram</div>
-              <div className="archBox">{`Business question
-  → Data model (star schema)
-  → Measures (DAX / SQL)
-  → Decision views (dashboards)
-  → Action + weekly reporting cadence`}</div>
+              <div className="archBox">{`Business problem
+  → SQL / Python analysis
+  → segmentation / retention / CLV
+  → business insight
+  → action recommendation`}</div>
 
               <div className="detailK">Dataset</div>
               <div className="muted">{proof.datasetNote}</div>
@@ -966,8 +754,6 @@ export default function App() {
           </div>
         )}
       </Modal>
-
-      <BlogModal open={blogsOpen} onClose={() => setBlogsOpen(false)} />
     </div>
   );
 }
